@@ -1,8 +1,8 @@
-const { Deck, Card, User, Sequelize } = require('../models')
+const { Deck, User } = require('../models')
 
 const GetDecks = async (req, res) => {
   try {
-    const decks = await Deck.findAll()
+    const decks = await Deck.findAll({})
     res.send(decks)
   } catch (error) {
     res.status(500).send({ error: error })
