@@ -2,7 +2,9 @@ const { Deck, User } = require('../models')
 
 const GetDecks = async (req, res) => {
   try {
-    const decks = await Deck.findAll({})
+    const decks = await Deck.findAll({
+      where: { user_id: res.locals.payload.user_id }
+    })
     res.send(decks)
   } catch (error) {
     res.status(500).send({ error: error })
@@ -24,10 +26,13 @@ const GetDeckById = async (req, res) => {
 const CreateDeck = async (req, res) => {
   try {
     const user = await User.findOne({
-      where: { id: req.body.user_id }
+      where: { user_id: res.locals.payload.user_id }
     })
     if (user) {
-      const deck = await Deck.create({ ...req.body })
+      const deck = await Deck.create({
+        user_id: res.locals.payload.user_id,
+        deck_name: req.body.deck_name
+      })
       return res.send(deck)
     }
     res.status(401).send({ status: 'Error', msg: 'Unauthorized' })

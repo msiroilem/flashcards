@@ -16,7 +16,6 @@ const Login = async (req, res) => {
     ) {
       let payload = {
         id: user.id,
-        email: user.email,
         username: user.username
       }
       let token = middleware.createToken(payload)
@@ -30,10 +29,10 @@ const Login = async (req, res) => {
 
 const Register = async (req, res) => {
   try {
-    const { username, email, password } = req.body
+    const { username, password } = req.body
     let password_digest = await middleware.hashPassword(password)
-    const user = await User.create({ username, email, password_digest })
-    res.send({ username: user.username, email: user.email })
+    const user = await User.create({ username, password_digest })
+    res.send({ username: user.username })
   } catch (error) {
     res.status(401).send({ status: 'Error', msg: 'Unauthorized' })
   }
