@@ -26,7 +26,7 @@ const GetDeckById = async (req, res) => {
 const CreateDeck = async (req, res) => {
   try {
     const user = await User.findOne({
-      where: { id: res.locals.payload.id }
+      where: { user_id: res.locals.payload.id }
     })
     if (user) {
       const deck = await Deck.create({
