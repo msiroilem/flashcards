@@ -26,19 +26,17 @@ const GetDeckById = async (req, res) => {
 const CreateDeck = async (req, res) => {
   try {
     const user = await User.findOne({
-      where: { user_id: res.locals.payload.id }
+      where: { id: res.locals.payload.id }
     })
     if (user) {
       const deck = await Deck.create({
         user_id: res.locals.payload.id,
         name: req.body.name
       })
-      console.log('hello')
       return res.send(deck)
     }
     res.status(401).send({ status: 'Error', msg: 'Unauthorized' })
   } catch (error) {
-    console.log(error)
     res.status(500).send({ error: error })
   }
 }

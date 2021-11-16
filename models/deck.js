@@ -7,7 +7,6 @@ module.exports = (sequelize, DataTypes) => {
   Deck.init(
     {
       name: DataTypes.STRING,
-      card_id: DataTypes.INTEGER,
       user_id: DataTypes.INTEGER
     },
     {
