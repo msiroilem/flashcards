@@ -3,7 +3,7 @@ const { Deck, User } = require('../models')
 const GetDecks = async (req, res) => {
   try {
     const decks = await Deck.findAll({
-      where: { user_id: res.locals.payload.user_id }
+      where: { user_id: res.locals.payload.id }
     })
     res.send(decks)
   } catch (error) {
@@ -44,7 +44,7 @@ const CreateDeck = async (req, res) => {
 const UpdateDeck = async (req, res) => {
   try {
     const user = await User.findOne({
-      where: { id: req.body.user_id }
+      where: { id: res.locals.payload.id }
     })
     if (user) {
       const deck = await Deck.update(
