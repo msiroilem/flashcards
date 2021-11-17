@@ -8,7 +8,8 @@ module.exports = (sequelize, DataTypes) => {
     {
       question: DataTypes.STRING,
       answer: DataTypes.STRING,
-      deck_id: DataTypes.INTEGER
+      deck_id: DataTypes.INTEGER,
+      user_id: DataTypes.INTEGER
     },
     {
       sequelize,

@@ -3,17 +3,10 @@ const controller = require('../controllers/CardController')
 const middleware = require('../middleware')
 
 router.get(
-  '/',
-  middleware.stripToken,
-  middleware.verifyToken,
-  controller.GetCards
-)
-
-router.get(
   '/:deck_id',
   middleware.stripToken,
   middleware.verifyToken,
-  controller.GetCardById
+  controller.GetCards
 )
 
 router.post(
@@ -24,14 +17,14 @@ router.post(
 )
 
 router.put(
-  '/:deck_id',
+  '/:card_id',
   middleware.stripToken,
   middleware.verifyToken,
   controller.UpdateCard
 )
 
 router.delete(
-  '/:deck_id',
+  '/:card_id',
   middleware.stripToken,
   middleware.verifyToken,
   controller.DeleteCard
