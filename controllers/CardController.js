@@ -5,21 +5,9 @@ const { Card, Deck, User } = require('../models')
 const GetCards = async (req, res) => {
   try {
     const cards = await Card.findAll({
-      where: { card_id: res.locals.payload.id }
+      where: { deck_id: res.locals.payload.id }
     })
     res.send(cards)
-  } catch (error) {
-    res.status(500).send({ error: error })
-  }
-}
-
-const GetCardById = async (req, res) => {
-  try {
-    const id = req.params.card_id
-    const card = await Card.findAll({
-      where: { id: id }
-    })
-    res.send(card)
   } catch (error) {
     res.status(500).send({ error: error })
   }
@@ -28,19 +16,16 @@ const GetCardById = async (req, res) => {
 //not sure if this is along the lines of what you want or not?
 const CreateCard = async (req, res) => {
   try {
-    const deck = await Deck.findOne({
-      where: { id: res.locals.payload.id }
+    const card = await Card.create({
+      user_id: res.locals.payload.id,
+      deck_id: res.locals.payload.id,
+      question: req.body.question,
+      answer: req.body.answer
     })
-    if (deck) {
-      const card = await Card.create({
-        deck_id: res.locals.payload.id,
-        question: req.body.question,
-        answer: req.body.answer
-      })
-      return res.send(card)
-    }
-    res.status(401).send({ status: 'Error', msg: 'Unauthorized' })
-  } catch (error) {}
+    res.send(card)
+  } catch (error) {
+    res.status(500).send({ error: error })
+  }
 }
 
 const UpdateCard = async (req, res) => {
