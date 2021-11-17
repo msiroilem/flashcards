@@ -8,7 +8,7 @@ const GetCards = async (req, res) => {
     const cards = await Card.findAll({
       where: {
         user_id: res.locals.payload.id,
-        deck_id: req.params.deck.id
+        deck_id: req.params.deck_id
       }
     })
     res.send(cards)
