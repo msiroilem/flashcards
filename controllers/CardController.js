@@ -1,11 +1,15 @@
 const { Card, Deck, User } = require('../models')
+const { Op } = require('sequelize')
 
 //GetCards, GetCardById and CreateCard methods are modeled after DeckController methods...let me know if this is way off or not...
 
 const GetCards = async (req, res) => {
   try {
     const cards = await Card.findAll({
-      where: { deck_id: res.locals.payload.id }
+      where: {
+        user_id: res.locals.payload.id,
+        deck_id: req.params.deck.id
+      }
     })
     res.send(cards)
   } catch (error) {
@@ -30,6 +34,9 @@ const CreateCard = async (req, res) => {
 
 const UpdateCard = async (req, res) => {
   try {
+    const user = await User.findOne({
+      where: {}
+    })
   } catch (error) {}
 }
 
