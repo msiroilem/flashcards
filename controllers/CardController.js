@@ -18,7 +18,7 @@ const CreateCard = async (req, res) => {
   try {
     const card = await Card.create({
       user_id: res.locals.payload.id,
-      deck_id: res.locals.payload.id,
+      deck_id: req.body.deck_id,
       question: req.body.question,
       answer: req.body.answer
     })
@@ -40,7 +40,6 @@ const DeleteCard = async (req, res) => {
 
 module.exports = {
   GetCards,
-  GetCardById,
   CreateCard,
   UpdateCard,
   DeleteCard
